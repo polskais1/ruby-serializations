@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+gem 'sinatra'
+
+# Serialization tools
+gem 'msgpack'
+gem 'protobuf'
