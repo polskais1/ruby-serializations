@@ -1,12 +1,12 @@
 require 'sinatra/base'
 require 'json'
 require 'msgpack'
+require 'protobuf'
 class Server < Sinatra::Base
-  # Benchmarks
-  @@start_encode_time
-  @@end_encode_time
-  @@start_decode_time
-  @@end_decode_time
+
+  class ProtoMessage < Protobuf::Message
+    optional :string, :foo, 1
+  end
 
   post '/json' do
     # Decode using JSON
@@ -39,7 +39,13 @@ class Server < Sinatra::Base
   end
 
   post '/protobuf' do
+    @@start_decode_time = time_in_microseconds
+    @@end_decode_time = time_in_microseconds
 
+    @@start_encode_time = time_in_microseconds
+    @@end_encode_time = time_in_microseconds
+
+    request.body.string
   end
 
   get '/benchmark' do
