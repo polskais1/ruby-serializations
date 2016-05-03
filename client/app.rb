@@ -2,6 +2,8 @@ require_relative 'client'
 
 include Client
 
-payload = []
-500.times { payload << {foo: "bar"} }
+puts "=====JSON====="
 json_request({foo: "bar"})
+puts "=====MessagePack====="
+msgpack_request({foo: "bar"})
+# protobuf_request({foo: "bar"})
