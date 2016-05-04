@@ -3,7 +3,8 @@ module Client
   require 'json'
   require 'msgpack'
   require 'protobuf'
-  @@base_uri = 'http://localhost:4567'
+
+  @@base_uri = 'https://ruby-serializations.herokuapp.com'
 
   # class for a message to be sent using Protocol Buffers
   class ProtoMessage < Protobuf::Message
@@ -69,7 +70,7 @@ module Client
   end
 
   def time_in_microseconds
-    Time.now.strftime '%6N'
+    Time.now.strftime '%s%6N'
   end
 
   def report_benchmarks(client_times)

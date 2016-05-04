@@ -58,7 +58,7 @@ class Server < Sinatra::Base
   end
 
   def time_in_microseconds
-    Time.now.strftime '%6N'
+    Time.now.strftime '%s%6N'
   end
 
   run!
