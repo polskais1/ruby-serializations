@@ -50,7 +50,6 @@ module Client
   end
 
   def protobuf_request(payload)
-    binding.pry
     client_times = {}
     client_times[:start_time] = time_in_microseconds
 
@@ -80,8 +79,8 @@ module Client
     server_benchmarks = HTTParty.get("#{@@base_uri}/benchmark")
 
     puts "\nServer Benchmarks:"
-    puts "Encode Time: #{server_benchmarks["encode_time"]}μs"
-    puts "Decode Time: #{server_benchmarks["decode_time"]}μs"
+    puts "Encode Time: #{server_benchmarks['encode_time']}μs"
+    puts "Decode Time: #{server_benchmarks['decode_time']}μs"
 
     puts "\nClient Benchmarks:"
     puts "Encode Time: #{total_encode_time}μs"

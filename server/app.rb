@@ -40,15 +40,18 @@ class Server < Sinatra::Base
 
   post '/protobuf' do
     @@start_decode_time = time_in_microseconds
+    decoded_request = ProtoMessage.decode(request.body.string)
     @@end_decode_time = time_in_microseconds
 
     @@start_encode_time = time_in_microseconds
+    encoded_response = ProtoMessage.new(decoded_request).encode
     @@end_encode_time = time_in_microseconds
 
-    request.body.string
+    encoded_response
   end
 
   get '/benchmark' do
+    content_type :json
     decode_time = @@end_decode_time.to_i - @@start_decode_time.to_i
     encode_time = @@end_encode_time.to_i - @@start_encode_time.to_i
     { decode_time: decode_time, encode_time: encode_time }.to_json
