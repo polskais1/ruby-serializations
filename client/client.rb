@@ -3,8 +3,9 @@ module Client
   require 'json'
   require 'msgpack'
   require 'protobuf'
-
-  @@base_uri = 'https://ruby-serializations.herokuapp.com'
+  
+  @@base_uri = 'http://localhost:4567'
+  # @@base_uri = 'https://ruby-serializations.herokuapp.com'
 
   # class for a message to be sent using Protocol Buffers
   class ProtoMessage < Protobuf::Message

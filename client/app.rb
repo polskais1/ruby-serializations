@@ -2,9 +2,11 @@ require_relative 'client'
 
 include Client
 
+message = {foo: "bar"}
+
 puts "=====JSON====="
-json_request({foo: "bar"})
+json_request(message)
 puts "=====MessagePack====="
-msgpack_request({foo: "bar"})
+msgpack_request(message)
 puts "=====Protocol Buffers====="
-protobuf_request({foo: "bar"})
+protobuf_request(message)
