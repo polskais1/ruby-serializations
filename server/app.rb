@@ -42,23 +42,29 @@ class Server < Sinatra::Base
   post '/protobuf' do
     content_type "application/msgpack"
     @@start_decode_time = time_in_microseconds
+    decoded_request = ProtoMessage.decode(request.body.string)
     @@end_decode_time = time_in_microseconds
 
     @@start_encode_time = time_in_microseconds
+    encoded_response = ProtoMessage.new(decoded_request).encode
     @@end_encode_time = time_in_microseconds
 
-    request.body.string
+    encoded_response
   end
 
   get '/benchmark' do
+<<<<<<< HEAD
     content_type "application/json"
+=======
+    content_type :json
+>>>>>>> 2341399e0dc2a0969358db13967a46c8683bcc31
     decode_time = @@end_decode_time.to_i - @@start_decode_time.to_i
     encode_time = @@end_encode_time.to_i - @@start_encode_time.to_i
     { decode_time: decode_time, encode_time: encode_time }.to_json
   end
 
   def time_in_microseconds
-    Time.now.strftime '%6N'
+    Time.now.strftime '%s%6N'
   end
 
   run!

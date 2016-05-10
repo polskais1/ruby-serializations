@@ -3,7 +3,9 @@ module Client
   require 'json'
   require 'msgpack'
   require 'protobuf'
+  
   @@base_uri = 'http://localhost:4567'
+  # @@base_uri = 'https://ruby-serializations.herokuapp.com'
 
   # class for a message to be sent using Protocol Buffers
   class ProtoMessage < Protobuf::Message
@@ -69,7 +71,7 @@ module Client
   end
 
   def time_in_microseconds
-    Time.now.strftime '%6N'
+    Time.now.strftime '%s%6N'
   end
 
   def report_benchmarks(client_times)
@@ -79,8 +81,8 @@ module Client
     server_benchmarks = HTTParty.get("#{@@base_uri}/benchmark")
 
     puts "\nServer Benchmarks:"
-    puts "Encode Time: #{server_benchmarks["encode_time"]}μs"
-    puts "Decode Time: #{server_benchmarks["decode_time"]}μs"
+    puts "Encode Time: #{server_benchmarks['encode_time']}μs"
+    puts "Decode Time: #{server_benchmarks['decode_time']}μs"
 
     puts "\nClient Benchmarks:"
     puts "Encode Time: #{total_encode_time}μs"
