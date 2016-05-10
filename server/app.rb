@@ -53,11 +53,7 @@ class Server < Sinatra::Base
   end
 
   get '/benchmark' do
-<<<<<<< HEAD
-    content_type "application/json"
-=======
     content_type :json
->>>>>>> 2341399e0dc2a0969358db13967a46c8683bcc31
     decode_time = @@end_decode_time.to_i - @@start_decode_time.to_i
     encode_time = @@end_encode_time.to_i - @@start_encode_time.to_i
     { decode_time: decode_time, encode_time: encode_time }.to_json

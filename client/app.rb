@@ -2,7 +2,7 @@ require_relative 'client'
 
 include Client
 
-payload = {foo: "bar"}
+payload = { foo: "bar" }
 
 puts "=====JSON====="
 json_request(payload)
