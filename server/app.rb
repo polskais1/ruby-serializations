@@ -24,6 +24,7 @@ class Server < Sinatra::Base
   end
 
   post '/msgpack' do
+    content_type "application/msgpack"
     # Decode using MessagePack
     @@start_decode_time = time_in_microseconds
     decoded_request = MessagePack.unpack(request.body.string)
@@ -39,6 +40,7 @@ class Server < Sinatra::Base
   end
 
   post '/protobuf' do
+    content_type "application/msgpack"
     @@start_decode_time = time_in_microseconds
     @@end_decode_time = time_in_microseconds
 
@@ -49,6 +51,7 @@ class Server < Sinatra::Base
   end
 
   get '/benchmark' do
+    content_type "application/json"
     decode_time = @@end_decode_time.to_i - @@start_decode_time.to_i
     encode_time = @@end_encode_time.to_i - @@start_encode_time.to_i
     { decode_time: decode_time, encode_time: encode_time }.to_json

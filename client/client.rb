@@ -19,7 +19,7 @@ module Client
     serialized_payload = payload.to_json
     client_times[:end_encode_time] = time_in_microseconds
 
-    response = HTTParty.post("#{@@base_uri}/json", {body: serialized_payload})
+    response = HTTParty.post("#{@@base_uri}/json", {body: serialized_payload, headers: {'Content-Type' => 'application/json'}})
 
     # Decode using JSON
     client_times[:start_decode_time] = time_in_microseconds
@@ -39,7 +39,7 @@ module Client
     serialized_payload = MessagePack.pack(payload)
     client_times[:end_encode_time] = time_in_microseconds
 
-    response = HTTParty.post("#{@@base_uri}/msgpack", {body: serialized_payload, headers: { 'Content-Type' => 'octet-stream' }})
+    response = HTTParty.post("#{@@base_uri}/msgpack", {body: serialized_payload, headers: { 'Content-Type' => 'application/msgpack' }})
     # Decode using MessagePack
     client_times[:start_decode_time] = time_in_microseconds
     MessagePack.unpack(response.body)
@@ -50,7 +50,6 @@ module Client
   end
 
   def protobuf_request(payload)
-    binding.pry
     client_times = {}
     client_times[:start_time] = time_in_microseconds
 
@@ -59,7 +58,7 @@ module Client
     serialized_payload = ProtoMessage.new(payload).serialize
     client_times[:end_encode_time] = time_in_microseconds
 
-    response = HTTParty.post("#{@@base_uri}/protobuf", {body: serialized_payload, headers: { 'Content-Type' => 'octet-stream' }})
+    response = HTTParty.post("#{@@base_uri}/protobuf", {body: serialized_payload, headers: { 'Content-Type' => 'application/protobuf' }})
     # Decode using MessagePack
     client_times[:start_decode_time] = time_in_microseconds
     ProtoMessage.decode(response.body)
